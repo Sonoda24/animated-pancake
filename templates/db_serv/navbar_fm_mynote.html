@@ -1,0 +1,62 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head>
+<meta charset="UTF-8" />
+<title>Sample</title>
+<style>
+.Tvis {
+  position: absolute;
+  left: 20px; top: 0px;
+  padding:0 0px 0 0px;
+  width:100%;
+  height:auto;
+  z-index: 30;
+  background-color:"red";
+  opacity: 0.;  
+}
+.canv {
+  z-index:20;
+  padding:0px;
+  left: -20px;
+  margin:0px;
+  width:100%;
+  position: absolute;
+  opacity: 0.;  
+}
+.my_button {
+  display: block;
+  width: 160px;
+  height: 36px;
+  margin: 10px 10px 10px 10px; /* 外側の時計回りの余白 */
+  text-align: center;
+  color: #fff;   /* #666; */
+  line-height: 36px;
+  text-decoration: none;
+  background-color: #69c;  /*  #efefef;  */
+  border: 1px solid #69c;  /*  #ddd;     */
+  border-radius: 5px;
+  float: left;
+}
+.my_button:hover {color:#ffffff; background:#0000cc;} /*カーソルが乗っているリンクの色*/
+
+.point_none {
+  pointer-events:none;
+}
+.point_auto {
+  pointer-events: auto;
+}
+</style></head>
+
+<body>
+        <svg id="mesh_canv" class="canv" width="1000" height="1000" version="1.1" xmlns="http://www.w3.org/2000/svg">
+	    <defs>
+	      <marker id="start_arw" viewBox="-10 -3 10 6" refX="-10" refY="0" markerWidth="10" markerHeight="6" orient="auto">
+	        <path d="M -10 0 L 0 -3 L 0 3 Z"/>
+	      </marker>
+	      <marker id="end_arw" viewBox="0 -3 10 6" refX="10" refY="0" markerWidth="10" markerHeight="6" orient="auto">
+	        <path d="M 0 -3 L 0 3 L 10 0 Z"/>
+	      </marker>
+	    </defs>
+	</svg>
+
+
+<div class="Tvis" id="texx" contenteditable="false" width="100%" height="100%" style="z-index: 40;"><svg id="svg_00" class="canv point_none" style="display;block" width="100%" height="1200px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+	<g id="g1620970993058" fig="top" class="top"><g id="g1629208701485" fig="path" close="close" smooth="smooth" class="none"><path d="M486, 329C441.32, 329.99 396.87, 338.38 352, 333C322.02, 329.41 289.65, 332.42 269, 303C248.82, 274.24 274.56, 247.13 272, 219C269.15, 187.61 228.73, 163.99 253, 127C278.14, 88.69 319.57, 96.99 356, 91C394.67, 84.64 433.33, 90.61 472, 91C533.67, 91.61 595.44, 86.44 657, 94C677.16, 96.48 697.56, 98.47 708, 120C720.06, 144.87 705.46, 168.64 705, 193C704.46, 221.33 713.97, 249.67 705, 278C699.01, 296.92 684.22, 306.27 667, 313C638.05, 324.31 607.39, 325.31 577, 328C546.69, 330.68 516.33, 328.33 486, 329 Z" stroke-dasharray="4 4" style="stroke-width: 2; stroke: rgb(0, 179, 0); fill: none;"/></g></g></svg><div id="header" style="width:auto; height:20px;"></div><div class="navheader"><a href="#" class="my_button" target="_blank">ホーム</a><a href="http://127.0.0.1:8000/new_list/" class="my_button" target="_blank">My Note検索</a><a href="http://127.0.0.1:8000/contact/contact_form/" class="my_button" target="_blank">連絡先</a></div><br /><br /><br /><br /><br /><br /><br /><br /><h1><span style="font-size: 50pt; font-family: 'comic sans ms', sans-serif;"><span style="color: #ff9900;">? ? ? ? ? ? ? ? ?M</span><span style="color: #33cccc;">y</span> <span style="color: #ff0000;">N</span><span style="color: #00ccff;">o</span><span style="color: #ffcc00;">t</span><span style="color: #00ff00;">e</span></span></h1><div><br /></div><div><br /></div><div><br /></div><div><br /></div><div><br /></div></div></body></html>

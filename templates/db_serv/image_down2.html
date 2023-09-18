@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Download</title>
+    </head>
+    <body>
+
+<h2>Your Album</h2>
+<!-- p>{{page_list}}</p -->
+<ul>
+    <form action="{% url 'imagedownload' %}" method="POST">
+
+        {% for a_image in page_list %}
+            <a href="{% url 'download' a_image.pk %}">{{ a_image }}</a>
+            <input type="checkbox" name="pick" value="{{ a_image.pk }}" ><img src='{{ MEDIA_URL }}{{a_image.photo}}' width=50>
+            <hr>
+        {% endfor %}
+</ul>
+    <!-- 前へ の部分 -->
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">前へ</a>
+    {% endif %}
+
+    <!-- 1/3 の部分 -->
+   {{ page_obj.number }}/{{ page_obj.paginator.num_pages }}
+
+    <!-- 次へ の部分 -->
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">次へ</a>
+    {% endif %}
+
+        {% csrf_token %}
+        <button type="submit">ダウンロード</button>
+    </form>
+<p/>
+
+    </body>
+</html>

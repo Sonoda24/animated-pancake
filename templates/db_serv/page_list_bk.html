@@ -1,0 +1,58 @@
+﻿<!--DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8" />
+<title>My_DB list</title>
+</head>
+<body -->
+{% include 'db_serv/list_header.html' %}
+    <!-- 前へ の部分 -->
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">前へ</a>
+    {% endif %}
+
+    <!-- 1/3 の部分 -->
+   {{ page_obj.number }}/{{ page_obj.paginator.num_pages }}
+
+    <!-- 次へ の部分 -->
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">次へ</a>
+    {% endif %}
+	<div id="news" style="width:100%;height:430px;float:left; overflow-y:scroll;overflow-x:scroll;">
+	  <!-- Js用の新テーブルの設定（最初の1行までとして2行目以降はCopyして作成する -->
+	  <table id="my_db">
+		<thead>
+		  <tr>
+	   	    <th>選</th>
+	   	    <th>課題名</th>
+	   	    <th>分類１</th>
+	   	    <th>分類２</th>
+	   	    <th>分類３</th>
+	   	    <th>更新日</th>
+	   	    <th>名称</th>
+		  </tr>
+   		</thead>
+   		<tbody id="my_db-tbody">
+{% for choice in page_list %}
+		  <tr>
+	   	    <td bgcolor="#99CC00" align="center"><input type="checkbox" class="checkboxes" /></td>
+	   	    <td>{{ choice.theme}}</td>
+	   	    <td>{{ choice.bunrui1}}</td>
+	   	    <td>{{ choice.bunrui2}}</td>
+	   	    <td>{{ choice.bunrui3}}</td>
+	   	    <td>{{ choice.day_regist}}</td>
+	   	    <td>{{ choice.overview}}</td>
+		  </tr>
+{% endfor %}
+		</tbody>
+	</table>
+      </div><!-- news -->
+<!-- ul>
+{% for choice in page_list %}
+    <li>{{ choice.no}} {{ choice.theme}}  {{ choice.bunrui1}} {{ choice.bunrui2}} {{ choice.bunrui3}} {{ choice.day_regist}} {{ choice.overview}}</li>
+{% endfor %}
+</ul -->
+
+<p />
+</body>
+</html>

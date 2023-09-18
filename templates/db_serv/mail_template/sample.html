@@ -1,0 +1,441 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
+  <title>SVG Editor</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <!--Bootstrap４を３に変え下記３行の変更でBottomメニュー可能となる-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+            @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP&amp;display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Open+Sans&amp;display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaisei+Opti&amp;display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Reggae+One&amp;display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&amp;display=swap');
+* { 
+    margin: 0px; 
+    padding: 0px; 
+}
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: auto;
+	    font-family: "Noto Serif JP",sans-serif;
+        }
+	.container-fluid {
+            margin: 0;
+            padding: 0;
+	}
+        .row {
+            margin: 0;
+            padding: 0;
+        }
+        nav.mt-3 {
+	    margin-top: 0 !important;
+	    padding: 0;
+        }
+        .tool {
+  	    display: flex;
+        }
+        .menu {
+  	    display: flex;
+        }
+        .navbar {
+	    height: 30px;
+	    min-height: 30px;
+	}
+
+* {box-sizing: border-box;}
+.tool , .tool form , .tool div .tool button .menu , .menu00 .menu01 .menu02 .menu03 {
+	display:inline-block;  
+	display: flex;
+	}
+ .tool select{
+		font-family: fontAwesome;
+	/*	height:30px;  */
+		position: relative; top: 0;
+		width:100px;
+		margine:0px;
+		padding:0px;
+/*	background-color: #4CAF50; */
+	background-color: #337ab7;
+	color: #fff;
+	}
+ .tool button{
+		font-family: fontAwesome;
+	/*	height:30px;  */
+		margine:0px;
+		padding:0px;
+/*	background-color: #4CAF50;  */
+	background-color: #337ab7;
+	color: #fff;
+	}
+ .tool select:hover {
+	opacity: 0.6;
+}
+ .tool button:hover {
+	opacity: 0.6;
+}
+
+.Thtm {
+  position: absolute;
+  left: 20px; top: 0px;
+  padding:0 0px 0 0px;
+  width: 1200px;
+  height: auto;
+  outline: none;
+}
+.Tvis {
+  position: absolute;
+  left: 20px; top: 0px;
+  padding:0 0px 0 0px;
+  width:1200px;
+  height:auto;
+  z-index: 30;
+  opacity: 0.;
+  outline: none;
+}
+
+.canv {
+  z-index:20;
+  padding:0px;
+  left: -20px;
+  margin:0px;
+  width:1200px;
+  position: absolute;
+  opacity: 0.;  
+}
+
+.canv2 {
+  z-index:20;
+  margin:0px;
+  padding;0px;
+  position: absolute;
+}
+
+.my_button {
+  display: block;
+  width: 100px;
+  height: 36px;
+  margin: 10px 10px 10px 10px; /* 外側の時計回りの余白 */
+  text-align: center;
+  color: #fff;
+  line-height: 36px;
+  text-decoration: none;
+  background-color: #69c;
+  border: 1px solid #69c;
+  border-radius: 5px;
+  float: left;
+}
+.my_button:hover {color:#ffffff; background:#0000cc;}
+
+
+.flex_box {
+    display: flex;              /* フレックスボックスにする */
+    align-items:stretch;        /* 縦の位置指定 */
+}
+
+.colm_flex {
+    display: flex;              /* フレックスボックスにする */
+    flex-direction:column;        /* 縦の位置指定 */
+}
+
+.point_none {
+  pointer-events:none;
+}
+.point_auto {
+  pointer-events: auto;
+}
+
+.select_none {
+  user-select:none;
+}
+
+.select_auto {
+  user-select:auto;
+}
+
+/*
+.mgr-50{
+    margin-right : 50px;
+}
+
+#trig1{
+	height:25px;
+        background-color:#ffffdd;
+}
+#trig2{
+	height:25px;
+        background-color:#ffffdd;
+}
+#trig3{
+	height:25px;
+        background-color:#ffffdd;
+}
+#svgtrig1{
+	height:25px;
+        background-color:#ffffdd;
+}
+#svgtrig2{
+	height:25px;
+        background-color:#ffffdd;
+}
+
+#svgtrig3{
+	height:25px;
+        background-color:#ffffdd;
+}
+
+.file {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+    padding: 6 -6 6 -6px;
+    margin:-6px;
+    border: 1px solid #000;
+}
+ 
+.file input[type="file"] {
+    opacity: 0;  
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+      #contextmenu_a {
+        display:none;
+        position:fixed;
+        left:0px;
+        top:0px;
+        width:100px;
+        height:160px;
+        border:1px solid #000;
+        background-color:#fff;
+        list-style-position: inside;
+  	z-index:1000;
+      }
+      #contextmenu_a li {
+        cursor:pointer;
+      }
+
+      #contextmenu_c {
+        display:none;
+        position:fixed;
+        left:0px;
+        top:0px;
+        width:110px;
+        height:50px;
+        border:1px solid #000;
+        background-color:#fff;
+        list-style-position: inside;
+  	z-index:1000;
+      }
+      #contextmenu_c li{
+        cursor:pointer;
+      }
+
+      #contextmenu_d {
+        display:none;
+        position:fixed;
+        left:0px;
+        top:0px;
+        width:110px;
+        height:65px;
+        border:1px solid #000;
+        background-color:#fff;
+        list-style-position: inside;
+  	z-index:1000;
+      }
+      #contextmenu_d li{
+        cursor:pointer;
+      }
+
+      #contextmenu_e {
+        display:none;
+        position:fixed;
+        left:0px;
+        top:0px;
+        width:130px;
+        height:110px;
+        border:1px solid #000;
+        background-color:#fff;
+        list-style-position: inside;
+  	z-index:1000;
+      }
+
+      .contex:hover { 
+	background-color: rgba(102, 102, 255, 0.50);
+      }
+*/
+/*
+.dialog {
+  overflow: hidden;
+  position: absolute;
+  top: 30%;
+  height: auto;
+  width: 300px;
+  display: none;
+  border:1px solid #aaa;
+  z-index:1000;
+}
+.dialog-header {
+  border: 1px solid #aaa;
+  background: #cccccc;
+  color: #222222;
+  font-weight: bold;
+  overflow: hidden;
+  padding:5px;
+}
+.dialog-title {
+  float: left;
+}
+.dialog-close {
+  float: right;
+  border: 1px solid #d3d3d3;
+  background: #e6e6e6;
+  font-weight: normal;
+  color: #555555;
+}
+.dialog-content {
+  position: relative;
+  border: 0;
+  padding: .5em 1em;
+  background: #fff;
+  overflow: auto;
+  width: auto;
+  height: auto;
+  font-size:12px;
+  font-weight:normal;
+  line-height:0.8;
+}
+
+.movable {   /* これは有効　下のhoverは効かない　*/
+  pointer-events: all;
+  cursor: pointer;
+}
+
+.draggable {   /* これは有効　下のhoverは効かない　*/
+  pointer-events: all;
+  cursor: move;
+}
+
+.draggable:hover {
+  backgroundColor = "orange";
+}
+
+.btn:hover {
+      background-color: rgba(102, 102, 255, 0.50);
+    }
+*/
+
+.my_navi ul {
+  display: flex;
+  flex-flow: column;
+  margin: 0;
+  padding: 6px;
+  list-style-type: none;
+}
+.my_navi li.my_hamburger {
+  align-self: flex-end;
+}
+.my_navi a {
+  display: block;
+  border-radius: 4px;
+  padding: 12px 24px;
+  color:white;
+  background-color:blue;
+  text-decoration: none;
+}
+.my_navi li a:hover {
+  opacity: 0.6;
+}
+
+@media only screen and (min-width:550px) {
+.my_navi ul {
+    display: flex;
+    flex-flow: row;
+    margin: 0;
+    padding: 6px;
+    list-style-type: none;
+  }
+
+.my_navi li.my_hamburger {
+     display: none;
+  }
+}
+</style></head>
+
+<body class="point_auto select_auto">
+
+        <svg id="mesh_canv" class="canv" width="1000" height="1000" version="1.1" xmlns="http://www.w3.org/2000/svg">
+	    <defs>
+	      <marker id="start_arw" viewBox="-10 -3 10 6" refX="-10" refY="0" markerWidth="10" markerHeight="6" orient="auto">
+	        <path d="M -10 0 L 0 -3 L 0 3 Z"/>
+	      </marker>
+	      <marker id="end_arw" viewBox="0 -3 10 6" refX="10" refY="0" markerWidth="10" markerHeight="6" orient="auto">
+	        <path d="M 0 -3 L 0 3 L 10 0 Z"/>
+	      </marker>
+	    </defs>
+	</svg>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous">
+</script>
+<script>
+$(function () {
+  $('#my_nav_togl').on('click', function () {        // js-btnクラスをクリックすると、
+//console.log('click');
+	$('li.my_nav').slideToggle();  // こちらがOK
+  })
+});
+</script>
+
+
+<div class="Tvis" id="texx" contenteditable="false" draggable="false" width="100%" height="100%" style="width: 1200px; z-index: 40;"><svg id="svg_00" class="canv point_none select_auto" style="display:block;" width="1200px" height="1800px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+	<g id="g1682622765727" fig="top" class="top"><g id="g1692940654723" fig="group" opacity="0.6" smooth="smooth" close="close" class="none" transform="matrix(1 0 0 1 -8 0)"><path d="M411,289.5 C410.7,292.4 409.7,294.8 408,296.7 C405.6,299.4 402.7,300.9 399.8,302.1 C396.1,303.4 392.3,304 388.5,304 C384.7,304 380.9,303.4 377.3,302.1 C374.3,300.9 371.4,299.4 369,296.7 C367.3,294.8 366,292.6 366,289.5 C366,286.4 367.3,284.2 369,282.2 C371.4,279.6 374.3,278.1 377.3,276.9 C380.9,275.6 384.7,275 388.5,275 C392.3,275 396.1,275.6 399.8,276.9 C402.7,278.1 405.6,279.6 408,282.2 C409.7,284.2 410.7,286.6 411,289.5 Z" style="stroke-width: 2; stroke: rgb(255, 75, 0); fill: none;"/></g><g id="g1692940741613" fig="path" class="none" opacity="0.6" close="else" smooth="smooth" color="#ff4b00"><path d="M370, 296C361.37, 305.04 352.71, 314.04 344, 323C329.71, 337.71 316.25, 353.23 301, 367C285.13, 381.33 268.53, 394.75 251, 407C237.36, 416.53 222.49, 423.93 208, 432C196.14, 438.6 184.14, 444.94 172, 451" stroke-dasharray="4 4" marker="/fw" marker-end="url(#fw_1692940741624)" style="stroke-width: 2; stroke: currentcolor; fill: none;"/><marker id="fw_1692940741624" viewBox="0 -3 10 6" refX="10" refY="0" markerWidth="10" markerHeight="6" orient="auto" fill="currentColor">
+	        <path d="M 0 -3 L 0 3 L 10 0 Z"/>
+	      </marker><marker id="bw_1692940741624" viewBox="-10 -3 10 6" refX="-10" refY="0" markerWidth="10" markerHeight="6" orient="auto">
+	        <path d="M -10 0 L 0 -3 L 0 3 Z"/>
+	      </marker></g><g fig="text" style="display:block;" transform="matrix(1 0 0 1 245 426)" fill="#ff4b00" id="t1692940779338" class="none">
+		  <!-- text text-anchor="start" font-size="14" stroke-width="0" rotate="0" style="display:block;" -->
+		  <text text-anchor="start" font-size="14" style="display:block;" gyou="3" font-weight="bold" fill="#ff4b00" stroke="#ff4b00" stroke-width="0" rotate="0" paint-order="stroke" stroke-linejoin="round"><tspan x="0" y="0">メール送信ボタンで</tspan><tspan x="0" y="16.8">Mail送信場面が</tspan><tspan x="0" y="33.6">ポップアップする。</tspan></text>
+		</g><g fig="text" style="display:block;" transform="matrix(1 0 0 1 277 581)" fill="#ff4b00" id="t1692940792956" class="none">
+		  <!-- text text-anchor="start" font-size="14" stroke-width="0" rotate="0" style="display:block;" -->
+		  <text text-anchor="start" font-size="14" style="display:block;" gyou="4" font-weight="bold" fill="#ff4b00" stroke="#ff4b00" stroke-width="0" rotate="0" paint-order="stroke" stroke-linejoin="round"><tspan x="0" y="0">最後に送信ボタンで</tspan><tspan x="0" y="16.8">そのページの文書が</tspan><tspan x="0" y="33.6">添付されたメールが</tspan><tspan x="0" y="50.400000000000006">送信される。</tspan></text>
+		</g><g id="g1692940956184" fig="group" opacity="0.6" smooth="smooth" close="close" class="none" transform="matrix(1 0 0 1 -40 258) matrix(1 0 0 1 -8 0)"><path d="M411,289.5 C410.7,292.4 409.7,294.8 408,296.7 C405.6,299.4 402.7,300.9 399.8,302.1 C396.1,303.4 392.3,304 388.5,304 C384.7,304 380.9,303.4 377.3,302.1 C374.3,300.9 371.4,299.4 369,296.7 C367.3,294.8 366,292.6 366,289.5 C366,286.4 367.3,284.2 369,282.2 C371.4,279.6 374.3,278.1 377.3,276.9 C380.9,275.6 384.7,275 388.5,275 C392.3,275 396.1,275.6 399.8,276.9 C402.7,278.1 405.6,279.6 408,282.2 C409.7,284.2 410.7,286.6 411,289.5 Z" style="stroke-width: 2; stroke: rgb(255, 75, 0); fill: none;"/></g><g id="g1692941212535" fig="group" opacity="0.6" smooth="else" close="close"><path d="M449,564 L449,584 L650,584 L650,564 L449,564 Z" style="stroke-width: 2; stroke: rgb(255, 75, 0); fill: none;"/></g><g fig="text" style="display:block;" transform="matrix(1 0 0 1 883 337)" fill="#ff4b00" id="t1692941245473" class="none">
+		  <!-- text text-anchor="start" font-size="14" stroke-width="0" rotate="0" style="display:block;" -->
+		  <text text-anchor="start" font-size="14" style="display:block;" gyou="2" font-weight="bold" fill="#ff4b00" stroke="#ff4b00" stroke-width="0" rotate="0" paint-order="stroke" stroke-linejoin="round"><tspan x="0" y="0">一度入力したメールリストが</tspan><tspan x="0" y="16.8">保存されている</tspan></text>
+		</g><g fig="text" style="display:block;" transform="matrix(1 0 0 1 849 379)" fill="#ff4b00" id="t1692941247862" class="none">
+		  <!-- text text-anchor="start" font-size="14" stroke-width="0" rotate="0" style="display:block;" -->
+		  <text text-anchor="start" font-size="14" style="display:block;" gyou="2" font-weight="bold" fill="#ff4b00" stroke="#ff4b00" stroke-width="0" rotate="0" paint-order="stroke" stroke-linejoin="round"><tspan x="0" y="0">Setボタンで宛先（address）欄に</tspan><tspan x="0" y="16.8">登録リストが追加される。</tspan></text>
+		</g><g fig="text" style="display:block;" transform="matrix(1 0 0 1 595 596)" fill="#ff4b00" id="t1692941258992" class="none">
+		  <!-- text text-anchor="start" font-size="14" stroke-width="0" rotate="0" style="display:block;" -->
+		  <text text-anchor="start" font-size="14" style="display:block;" gyou="2" font-weight="bold" fill="#ff4b00" stroke="#ff4b00" stroke-width="0" rotate="0" paint-order="stroke" stroke-linejoin="round"><tspan x="0" y="0">５つの登録リスト</tspan><tspan x="0" y="16.8">ボタンを押すと図４．が表示される</tspan></text>
+		</g><g id="g1692941408565" fig="group" opacity="0.6" smooth="smooth" close="close" class="none" transform="matrix(1 0 0 1 291 26) matrix(1 0 0 1 -40 258) matrix(1 0 0 1 -8 0)"><path d="M411,289.5 C410.7,292.4 409.7,294.8 408,296.7 C405.6,299.4 402.7,300.9 399.8,302.1 C396.1,303.4 392.3,304 388.5,304 C384.7,304 380.9,303.4 377.3,302.1 C374.3,300.9 371.4,299.4 369,296.7 C367.3,294.8 366,292.6 366,289.5 C366,286.4 367.3,284.2 369,282.2 C371.4,279.6 374.3,278.1 377.3,276.9 C380.9,275.6 384.7,275 388.5,275 C392.3,275 396.1,275.6 399.8,276.9 C402.7,278.1 405.6,279.6 408,282.2 C409.7,284.2 410.7,286.6 411,289.5 Z" style="stroke-width: 2; stroke: rgb(255, 75, 0); fill: none;"/></g><g id="g1692941520474" fig="path" class="none" opacity="0.6" close="else" smooth="smooth" color="#ff4b00" transform="translate(0,0)"><path d="M638, 565C653.13, 554.07 664.46, 540.07 672, 523C681.7, 501.02 682.35, 477.08 687, 454C691.69, 430.73 694.19, 407.06 700, 384C704.57, 365.85 707.86, 347.26 718, 331C726.68, 317.07 739.36, 307.5 753, 299C763.42, 292.51 774.75, 288.84 787, 288" stroke-dasharray="4 4" marker="/fw" marker-end="url(#fw_1692941520484)" style="stroke-width: 2; stroke: currentcolor; fill: none;"/><marker id="fw_1692941520484" viewBox="0 -3 10 6" refX="10" refY="0" markerWidth="10" markerHeight="6" orient="auto" fill="currentColor">
+	        <path d="M 0 -3 L 0 3 L 10 0 Z"/>
+	      </marker><marker id="bw_1692941520484" viewBox="-10 -3 10 6" refX="-10" refY="0" markerWidth="10" markerHeight="6" orient="auto">
+	        <path d="M -10 0 L 0 -3 L 0 3 Z"/>
+	      </marker></g><g id="g1692941587917" fig="group" opacity="0.6" smooth="smooth" close="close" class="none" transform="matrix(1 0 0 1 480 -169) matrix(1 0 0 1 -40 258) matrix(1 0 0 1 -8 0)"><path d="M411,289.5 C410.7,292.4 409.7,294.8 408,296.7 C405.6,299.4 402.7,300.9 399.8,302.1 C396.1,303.4 392.3,304 388.5,304 C384.7,304 380.9,303.4 377.3,302.1 C374.3,300.9 371.4,299.4 369,296.7 C367.3,294.8 366,292.6 366,289.5 C366,286.4 367.3,284.2 369,282.2 C371.4,279.6 374.3,278.1 377.3,276.9 C380.9,275.6 384.7,275 388.5,275 C392.3,275 396.1,275.6 399.8,276.9 C402.7,278.1 405.6,279.6 408,282.2 C409.7,284.2 410.7,286.6 411,289.5 Z" style="stroke-width: 2; stroke: rgb(255, 75, 0); fill: none;"/></g><g id="g1692941715528" fig="path" class="group" opacity="0.6" close="else" smooth="smooth" color="#ff4b00"><path d="M810, 378C800.64, 384.87 794.31, 393.87 791, 405C785.46, 423.63 786.49, 442.95 785, 462C783.83, 476.98 788.24, 492.2 783, 507C779.38, 517.22 770.57, 521.98 762, 527C746.55, 536.05 730.21, 543.05 713, 548" stroke-dasharray="4 4" marker="/fw" marker-end="url(#fw_1692941715537)" style="stroke-width: 2; stroke: currentcolor; fill: none;"/><marker id="fw_1692941715537" viewBox="0 -3 10 6" refX="10" refY="0" markerWidth="10" markerHeight="6" orient="auto" fill="currentColor">
+	        <path d="M 0 -3 L 0 3 L 10 0 Z"/>
+	      </marker><marker id="bw_1692941715537" viewBox="-10 -3 10 6" refX="-10" refY="0" markerWidth="10" markerHeight="6" orient="auto">
+	        <path d="M -10 0 L 0 -3 L 0 3 Z"/>
+	      </marker></g><g fig="text" style="display:block;" transform="matrix(1 0 0 1 -128 40) matrix(1 0 0 1 595 596)" fill="#ff4b00" id="g1692942175733" class="none">
+		  <!-- text text-anchor="start" font-size="14" stroke-width="0" rotate="0" style="display:block;" -->
+		  <text text-anchor="start" font-size="14" style="display:block;" gyou="2" font-weight="bold" fill="#ff4b00" stroke="#ff4b00" stroke-width="0" rotate="0" paint-order="stroke" stroke-linejoin="round"><tspan x="0" y="0">コメント欄は適切な表現に変えて</tspan><tspan x="0" y="16.8">使用して下さい。</tspan></text>
+		</g></g></svg><div id="divsvg_00" class="divsvg" level="0" fig="基本枠" style="margin-left:50px; margin-right:100px;"><h3 class="title" fig="見出し" style="margin-right:200px;background-color:#dbffdc;padding:1rem 2rem;border:4px solid lightgreen;font-weight:bold;">文書ページからダイレクトにメール送信</h3><p fig="段落">My Noteのページからダイレクトにそのページの編集内容をメール送信することが出来ます。編集済でも編集中でも構いません。連絡したいことを即座に知らせたい、作成中の文書の出来栄えを直ぐにでも見てもらいたいなど色んな場合があると思いますが、作成文書を別ファイルに落とし込んでメールシステムに移って、そのファイルを添付する手間を省くことが出来るので便利です。使い方を以下に説明します。</p><div class="flex_box" fig="横小枠" style="justify-content:space-around;align-items:flex-start;"><div fig="figure" class="flex" style="width:33.3%;padding:0 10px;border-radius:5px; border: solid 1px #008080;" height="auto"><p>１．メール送信への入り口</p><p>メール送信に移るにはページ最下段メニューの左隅の「表示のみ」モードに移り、メール送信ボタンをクリックして下さい。<br /><br /></p><img fig="img" draggable="false" src="https://lh3.googleusercontent.com/pw/AIL4fc-_dFa2UJYD1whSyCgZm4CB5UyB0gQv4eLm8KD37SSLkRSgeLClYqb0N6-ZPp6i2Z5nvt7yDGGlfqaXKKHyo2sof88NI9Y4AyV2_0j4pv34x6-DY-hXtm2usqO7VGs_XqPj2btw6a09gR0bHPAwSD-Z=w1024-h75-s-no?authuser=0" style="width:100%;height:auto;" /><p align="center"><br />図１．メール送信への入り口</p><p>下記図２．のMial送信の画面がポップアップして来ます。ここで必要事項を入力後に送信ボタンをクリックするだけです。<br /><br /></p><img fig="img" draggable="false" src="https://lh3.googleusercontent.com/pw/AIL4fc-V4pJiSAPHOphkwtvZHqq0yY1wJiGGabM9L7-ZHOF9GOkFsX86snqFTQY-g_b64RtwivWVLXxAB8okIiR-zeTCwhSqCF3B45ObfVBNqrW-R04Fe063Ne1xoMEHVqOEbP9-OpnGIQYsj4otBtbUOy_m=w784-h464-s-no?authuser=0" style="width:100%;height:auto;" /><p align="center">図２．メール送信の画面</p><p align="center"><br /><br /></p></div><div fig="figure" class="flex" style="width:33.3%;padding:0 10px;border-radius:5px; border: solid 1px #008080;" height="auto"><p>メール送信画面について少し詳しく説明しますと、①件名(subject)
+　  <br />　挨拶、連絡、XXXの件　などメール送信の主旨に
+　ついて入力します。<br />②宛先（address)
+　<br />　宛先（送信したい人）のアドレスリストを入力
+　します。アドレス毎にコンマ（,）で区切って下
+　さい。下記に説明するMailリストを使って入力
+　することも出来ます。<br /> ③コメント
+　<br />　メールの本文になります。My Noteの文書は
+　sample.htmlの名前で添付されるので「添付の
+　sample.htmlを御覧下さい。」のコメント文を
+　入れてますが、変更して適切な表現に変えて
+<br />　使って下さい。</p><img fig="img" draggable="false" src="https://lh3.googleusercontent.com/pw/AIL4fc8NdEBE1JuB-f8BlQzcdPcdMm_tw3yLipcuaswN9i6xGokoQC9rADHi_dQu6LnFLDiMqcdze-NdxpxMryYoEtY8SHCBEMemwNBgvxLV5wbiZr9U_oFvCSx21ChwrJBdoHf29XQwDKJajSL_qbPxLYIj=w780-h459-s-no?authuser=0" style="width:100%;height:auto;" /><p align="center">図３．メール送信画面の使い方</p><p align="center"><br /></p></div><div fig="figure" class="flex" style="width:33.3%;padding:0 10px;border-radius:5px; border: solid 1px #008080;" height="auto"><p>④Mailリスト<br />　宛先（address)の下にlist1～list5の5個のボタン<br />　が並んでいます。これらは日常的に送信する人が<br />　決まってる場合などに使う登録リスです。<br /></p><img fig="img" draggable="false" src="https://lh3.googleusercontent.com/pw/AIL4fc9z9752eCkWkTpNO35rsJ83mL3Q10KrlFdnLrXa7O5IBOHi9THeEUqgzjZrseJZ2hv4TF6MbhZXCY3Jr1WXqs4oyt9ykndJ-9-b_IRBUzQViNgwa1x6sZdce7mI6Zs1dxT7gHhNz_aa0UlkADguziOk=w785-h317-s-no?authuser=0" style="width:100%;height:auto;" /><p align="center">図４．Mailリストの説明</p><p>下記の図４．は自分宛にメールしたgmailの着信例となります。</p><img fig="img" draggable="false" src="/media/Document/mail_03.jpg" style="padding:0 40px;width:100%;float:left;" height="auto" /><p align="center">図４．gmailでの着信例</p></div></div><p fig="段落"> 　　　　　　</p></div></div></body></html>

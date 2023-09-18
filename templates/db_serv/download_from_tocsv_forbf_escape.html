@@ -1,0 +1,219 @@
+﻿{% include 'db_serv/list_header.html' %}
+<h1 class="title">Upload csv To MynoteDB</h1>
+    <div class="message-body">
+       <span id="message">ファイルを選択してください。</span>
+    </div>
+    <input id="csv_file" type="file">
+<script>
+function getCookie(name) {
+    var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+        }
+    }
+       return cookieValue;
+}
+
+var csrftoken = getCookie('csrftoken');
+
+function csrfSafeMethod(method) {
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+$.ajaxSetup({
+    beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+        }
+});
+
+let fileInput = document.getElementById('csv_file');
+let message = document.getElementById('message');
+let fileReader = new FileReader();
+
+// ファイル変更時イベント
+fileInput.onchange = () => {
+  message.innerHTML = "読み込み中..."
+
+  let file = fileInput.files[0];
+  //fileReader.readAsText(file, "Shift_JIS");
+  fileReader.readAsText(file, "UTF-8");
+
+};
+
+// ファイル読み込み時
+let items = [];
+fileReader.onload = () => {
+  // ファイル読み込み
+  let fileResult = fileReader.result.split('\n');
+console.log('csv lenth=',fileResult.length);
+  let i=0;
+  for(let ix in fileResult) {
+	i+=1;
+	items=fileResult[ix].split(',');
+console.log('line i=',i,'term len=',items.length,items);
+	var parms=(unescapeHtml(unescape(items[1]))).split('|<=>|');
+console.log('My_no,kind,dfg,  =',parms)
+
+	let kind=items[0];
+	let term1=items[1];
+	let term2=items[2];
+	let term3=items[3];
+	let term4=items[4];
+	if(kind=='My_Data') {
+		term1=items[1];
+		term2=items[2];
+		term3=escape(unescapeHtml(unescape(items[3])));
+		term4=escape(unescapeHtml(unescape(items[4])));
+		}
+	if(kind=='My_Svg') {
+		term1=escape(unescapeHtml(unescape(items[1])));
+		term2=escape(unescapeHtml(unescape(items[2])));
+		term3=escape(unescapeHtml(unescape(items[3])));
+		term4=escape(unescapeHtml(unescape(items[4])));
+		}
+	if(kind=='My_CnSvg') {
+		term1=escape(unescapeHtml(unescape(items[1])));
+		term2=escape(unescapeHtml(unescape(items[2])));
+		term3=escape(unescapeHtml(unescape(items[3])));
+		term4=escape(unescapeHtml(unescape(items[4])));
+		}
+console.log('term kind=',kind,'del_flag=',parms[2]);
+
+//	if(parms[2]=='1') continue;
+//	if(i>30) break;
+
+        $.ajax({
+            url: "/db_serv/setup_csv_record/",
+	    type:'POST',
+            async:false,
+            data: {
+		"kind":kind,
+		"term1":term1,
+		"term2":term2,
+		"term3":term3,
+		"term4":term4,
+		},
+            dataType: 'json'
+        })
+        .done((data) => {
+            //結果が帰ってきたら、表示します。
+		console.log('**Ajax Returned result=',data['kind'],data['rec_num']);
+        })
+	.fail((jqXHR, textStatus, errorThrowndata) => {
+console.log('Ajax setup_csv_record error');
+//alert('Ajax setup_csv_record error');
+         });
+
+    }
+
+	kind="finish";
+	term1="";
+	term2="";
+	term3="";
+	term4="";
+
+        $.ajax({
+            url: "/db_serv/setup_csv_record/",
+	    type:'POST',
+            async:false,
+            data: {
+		"term1":term1,
+		"term2":term2,
+		"term3":term3,
+		"term4":term4,
+		},
+            dataType: 'json'
+        })
+        .done((data) => {
+            //結果が帰ってきたら、表示します。
+		console.log('**Ajax Returned result=',data['kind'],data['rec_num']);
+        })
+	.fail((jqXHR, textStatus, errorThrowndata) => {
+alert('Ajax setup_csv_record error');
+         });
+//console.log('read record=',fileResult);
+  message.innerHTML = fileResult.length + "件のデータを読み込みました。"
+}
+
+// ファイル読み取り失敗時
+fileReader.onerror = () => {
+  items = [];
+  message.innerHTML = "ファイル読み取りに失敗しました。"
+}
+function conv() {
+	var str = document.getElementById("src").value;
+	str = Photozou.MacUnicode.normalizeToNFC(str);
+	document.getElementById("dst").value = str;
+}
+
+function escapeHtml(convertString) {
+    if (typeof convertString !== 'string') return convertString;
+ 
+    var patterns = {
+        '<'  : '&lt;',
+        '>'  : '&gt;',
+        '&'  : '&amp;',
+        '"'  : '&quot;',
+        '\'' : '&#x27;',
+        '`'  : '&#x60;'
+    };
+ 
+    return convertString.replace(/[<>&"'`]/g, function(match) {
+        return patterns[match];
+    });
+};
+
+function unescapeHtml(target) {
+    if (typeof target !== 'string') return target;
+ 
+    var patterns = {
+        '&lt;'   : '<',
+        '&gt;'   : '>',
+        '&amp;'  : '&',
+        '&quot;' : '"',
+        '&#x27;' : '\'',
+        '&#x60;' : '`'
+    };
+ 
+    return target.replace(/&(lt|gt|amp|quot|#x27|#x60);/g, function(match) {
+        return patterns[match];
+    });
+};
+
+/*
+	overview_term[7]=document.getElementById("Texview").value;
+	my_overview=compose_overview(set_ComboA.value,set_ComboB.value,set_ComboC.value,set_ComboD.value,overview_term);
+console.log(my_overview);
+
+function compose_overview(a,b,c,d,term){
+	var ret=a+'|<=>|'+b+'|<=>|'+c+'|<=>|'+d;
+console.log('term=',term,term.length);
+	for(var k=4;k<term.length;k++) {
+	term[k]=escapeHtml(escape(term[k]));
+		ret=ret+'|<=>|'+term[k];
+		}
+console.log(ret);
+	return ret;
+	}
+
+      my_overview=unescapeHtml(unescape("{{overviews}}"));
+      overview_term=my_overview.split('|<=>|');
+console.log('overviews=',overview_term);
+
+*/
+
+function cutescape(convertString) {
+    if (typeof convertString !== 'string') return convertString;
+ 
+    return convertString.replace(/[<>&"'`,]/g,'.');
+   };
+</script>
+{% include 'db_serv/footer.html' %}

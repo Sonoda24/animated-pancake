@@ -1,0 +1,108 @@
+﻿{% include 'db_serv/list_header.html' %}
+<h1 class="title">Download records To local Csv</h1>
+<script>
+function getCookie(name) {
+    var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+        }
+    }
+       return cookieValue;
+}
+
+var csrftoken = getCookie('csrftoken');
+
+function csrfSafeMethod(method) {
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+$.ajaxSetup({
+    beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+        }
+});
+
+console.log('download_from Start');
+var step='start';
+//var step='doc_start';
+	tx_tot='';
+	loop=0;
+	i=0;
+	while(loop==0) {
+		i++
+		get_document();
+		//putdoc_tocsv();
+		if(step=='finish') loop=1;
+//		if(i>50) loop=1
+		}
+
+	var blob =new Blob([tx_tot],{type:"text/csv"}); //配列に上記の文字列(str)を設定
+	var link =document.createElement('a');
+	link.href = URL.createObjectURL(blob);
+	link.download ="tempdate.csv";
+	link.click();
+
+
+function get_document() {
+console.log('Enter to get_document');
+        $.ajax({
+            url: "/db_serv/download_recs/",
+	    type:'POST',
+            async:false,
+            data: {
+		"step":step,
+		},
+            dataType: 'json'
+        })
+        .done((data) => {
+            //結果が帰ってきたら、表示します。
+		console.log('step=',step,'**Ajax Returned result=',data);
+		var recv=data['next'];
+		var wdata=data['header']+','+data['overviews']+','+data['view_tex']+','+""+'\n';
+		if(step=='start') {
+			tx='My_Sys'+','+wdata;
+			tx_tot=tx_tot+tx;
+			}
+		if(step=='sys_next') {
+			tx='My_Sys'+','+wdata;
+			tx_tot=tx_tot+tx;
+			}
+		if(step=='doc_start') {
+			tx='My_Data'+','+wdata;
+			tx_tot=tx_tot+tx;
+			tx='My_Svg'+','+data['svg_field']+','+""+','+""+','+""+'\n';
+			tx_tot=tx_tot+tx;
+			}
+		if(step=='doc_next') {
+			tx='My_Data'+','+wdata;
+			tx_tot=tx_tot+tx;
+			tx='My_Svg'+','+data['svg_field']+','+""+','+""+','+""+'\n';
+			tx_tot=tx_tot+tx;
+			}
+		if(step=='svg_start') {
+			tx='My_CnSvg'+','+data['overviews']+','+""+','+""+','+""+'\n';
+			tx_tot=tx_tot+tx;
+			}
+		if(step=='svg_next') {
+			tx='My_CnSvg'+','+data['overviews']+','+""+','+""+','+""+'\n';
+			tx_tot=tx_tot+tx;
+			}
+		step=recv;
+        })
+	.fail((jqXHR, textStatus, errorThrowndata) => {
+console.log('Ajax setup_csv_record error');
+//alert('Ajax setup_csv_record error');
+         });
+
+    }
+
+</script>
+{% include 'db_serv/footer.html' %}
