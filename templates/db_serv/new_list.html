@@ -852,7 +852,7 @@ console.log('only Top text=',svg_div);
 			}
 		}
 
-      my_confirm(5);
+//      my_confirm(5);
 console.log('**doc loaded at my_confirm(5)');
 console.log('org_container=',org_container,' container=',container);
 
@@ -901,7 +901,8 @@ console.log('svg height=',rect_c.height,svgs[k].clientHeight,'div height=',div_h
 
 function To_your_Pc() {
 console.log('Tp your Pc selected');
-	my_confirm(9);
+//	my_confirm(9);
+	export_html();
 	}
 
     function createRectFig(x,y,w,h) {
@@ -1658,5 +1659,113 @@ console.log('overviews=',overview_term);
 
 console.log('Dialog closed');
 	});
+//
+//Chain Svgの展開
+//
+      cnsvg_tags=svgtag_decompose(header_term[5],header_term[6]);
+      cnsvg_nums=cnsvg_tags.length;
+//console.log('tags leng=',cnsvg_tags.length,cnsvg_tags);
+//CnSvg(複数個所の読み込みと展開
+//console.log('*Start set cnsvg tag leng=',cnsvg_tags.length);
+	for(var i=0;i<cnsvg_tags.length;i++) {
+		var tagn=cnsvg_tags[i].name;
+		get_cnsvg(cnsvg_tags[i].pk)
+		cnsvg_tags[i].head=wfcn_header;
+		var svg_div=document.getElementById('div'+tagn);
+    		var oya = svg_div.parentNode;
+    		var dumy=document.getElementById('chain');
+    		var newsvg=dumy.cloneNode(true);
+    		newsvg.setAttribute('id', tagn);
+    		newsvg.setAttribute('style', 'display:block;');
+//console.log(newsvg,svg_div);
+		var rect=createRectFig(0,0,20,20);
+		rect.setAttribute('class', 'chain_svg_mark');
+		rect.setAttribute('stroke', 'blue');
+		rect.setAttribute('stroke-width', '1');
+		rect.setAttribute('fill', 'blue');
+		newsvg.appendChild(rect);
+//		cnsvg_field=unescapeHtml(unescape(cnsvg_field));
+		cnsvg_field=unescape(cnsvg_field);
+//console.log(cnsvg_field,svg_div,oya);
+    		oya.insertBefore(newsvg,svg_div);
+//console.log('expand chain_svg');
+		expand_svg(cnsvg_field,tagn);
+//console.log(cnsvg_field,svg_div,oya);
+		svg_tag_add(tagn)
+		}
+//console.log('cnsvg tags leng=',cnsvg_tags.length,cnsvg_tags);
+
+//
+//Top Svgの展開と表示
+//
+      var first_child = first_container.firstChild ;
+      var dumy=document.getElementById('chain');
+      var newsvg=dumy.cloneNode(true);
+      newsvg.setAttribute('id', 'svg_00');
+      newsvg.setAttribute('style', 'display:block;');
+	var rect=createRectFig(0,0,20,20);
+	rect.setAttribute('class', 'chain_svg_mark');
+	rect.setAttribute('stroke', 'blue');
+	rect.setAttribute('stroke-width', '1');
+	rect.setAttribute('fill', 'blue');
+	newsvg.appendChild(rect);
+      first_container.insertBefore(newsvg,first_child);
+
+      org_container = document.getElementById('svg_00');
+//containerは下記expand_svgnの中でsvg_00中のg01を設定
+//console.log('expand top_svg leng=',svg_tex.length);
+      expand_svg(svg_tex,'svg_00');
+      set_svg(svg_now);
+
+	if(org_container.querySelector('.top')==null) {
+//console.log('***make g01 group as container');
+		container=org_container;
+		var {group,fig_id}=make_group('top');
+		group.setAttribute('class', 'top');
+		group.removeAttribute('opacity');
+		container=org_container.appendChild(group);
+		}
+	else {
+		container=org_container.querySelector('.top');
+		}
+
+function export_html(){
+//class=Tivの複製
+  var data=get_common(7);
+//console.log('data=',data);
+
+    const parser = new DOMParser();
+    const html_dat = parser.parseFromString(data, "text/html");
+
+    var tagn=document.getElementById('texx');
+    var dumy=tagn.cloneNode(true);
+
+	dlist=dumy.querySelectorAll('rect');
+	dlist.forEach(function (element) {
+		element.remove();
+//		element.setAttribute('style','display;block');
+//		element.setAttribute('class','canv point_none');
+//console.log(element);
+		});
+
+	var btag=html_dat.querySelector('body');
+//console.log(btag);
+	btag.appendChild(dumy);
+//console.log(html_dat);
+	const serializer = new XMLSerializer();
+	const es_html = serializer.serializeToString(html_dat);
+console.log('export html length=',es_html.length);
+//for デモバージョン
+	if(((for_cloud=='yes') || (for_demo=='yes')) && (es_html.length > 80000)) {
+		alert('Download HTML is too large this Demo version!');
+		return;
+		}
+
+let blob = new Blob([es_html],{type:"html"});
+let link = document.createElement('a');
+link.href = URL.createObjectURL(blob);
+link.download = 'testfile.html';
+link.click();
+   }
 </script>
 {% include 'db_serv/footer.html' %}

@@ -26,6 +26,7 @@ SECRET_KEY = 'pfelij@7*l8l0p^y8oboe3+lasux_riw5#76u1q_^(xx+8et)@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+#ALLOWED_HOSTS = ['smartworks.tech']
 ALLOWED_HOSTS = ['*']
 
 
@@ -83,6 +84,14 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#	'NAME':'django_db',
+#	'USER':'sonoda24',
+#	'PASSWORD':'mynote',
+#	'HOST':'localhost',
+#	'PORT':'',
+#	}
 }
 
 
