@@ -3586,10 +3586,10 @@ def handle_uploaded_file(file_obj):
     sys.stderr.write(file_obj.name + "\n")
     file_path = 'media/documents/' + file_obj.name 
     sys.stderr.write(file_path + "\n")
-    with open(file_path, 'wb+') as destination:
+    with open(file_path, 'r') as destination:
         for chunk in file_obj.chunks():
             sys.stderr.write("*** handle_uploaded_file *** ccc ***\n")
-            destination.write(chunk)
+            destination.write(chunk.decode())
             sys.stderr.write("*** handle_uploaded_file *** eee ***\n")
         return file_path
 """
