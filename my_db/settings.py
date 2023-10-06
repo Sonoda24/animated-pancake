@@ -26,8 +26,8 @@ SECRET_KEY = 'pfelij@7*l8l0p^y8oboe3+lasux_riw5#76u1q_^(xx+8et)@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-#ALLOWED_HOSTS = ['smartworks.tech']
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['smartworks-mynote.work']
+#ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -48,7 +48,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -80,18 +80,18 @@ WSGI_APPLICATION = 'my_db.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
 #    'default': {
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#	'NAME':'django_db',
-#	'USER':'sonoda24',
-#	'PASSWORD':'mynote',
-#	'HOST':'localhost',
-#	'PORT':'',
-#	}
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+	'NAME':'mynote_db',
+	'USER':'db_sonoda',
+	'PASSWORD':'ys74j821',
+	'HOST':'localhost',
+	'PORT':'',
+	}
 }
 
 
