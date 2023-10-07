@@ -11,7 +11,7 @@ from django.shortcuts import render, redirect
 
 from db_serv.forms import My_ImageForm
 from db_serv.models import My_Image
- 
+
 from db_serv.forms import UploadFileForm
 from db_serv.models import My_Data
 from db_serv.models import My_Svg
