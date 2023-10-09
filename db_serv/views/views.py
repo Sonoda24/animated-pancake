@@ -3589,7 +3589,8 @@ def handle_uploaded_file(file_obj):
     with open(file_path, 'wb+') as destination:
         for chunk in file_obj.chunks():
             sys.stderr.write("*** handle_uploaded_file *** ccc ***\n")
-            destination.write(chunk.decode())
+            #destination.write(chunk.decode())
+            destination.write(chunk)
             sys.stderr.write("*** handle_uploaded_file *** eee ***\n")
         return file_path
 """
