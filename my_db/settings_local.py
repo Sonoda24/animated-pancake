@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'pfelij@7*l8l0p^y8oboe3+lasux_riw5#76u1q_^(xx+8et)@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['smartworks-mynote.work']
 #ALLOWED_HOSTS = ['*']
@@ -132,12 +132,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/var/www/sonoda24_demo/static'
-#STATICFILES_DIRS = (
-#    [
-#        os.path.join(BASE_DIR, "static"),
-#    ]
-#)    
+
+STATICFILES_DIRS = (
+    [
+        os.path.join(BASE_DIR, "static"),
+    ]
+)    
+
 
 #""" Gmail メールサーバー用　"""
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
@@ -146,6 +147,8 @@ EMAIL_HOST_USER = 'yzr.sonoda@gmail.com'
 EMAIL_HOST_PASSWORD = 'kkyluagrfjgfygaz'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+
 
 #""" Yahoo メールサーバー用　"""
 #EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
@@ -156,8 +159,7 @@ EMAIL_USE_TLS = True
 #EMAIL_PORT = 587
 #EMAIL_USE_TLS = True
 
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_ROOT = '/var/www/sonoda24_demo/media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 """
